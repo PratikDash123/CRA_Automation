@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function validateCredentials() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Make an HTTP POST request to the REST API
+            $.ajax({
+                url: "https://api.example.com/login",
+                type: "POST",
+                data: {
+                    email: email,
+                    password: password,
+                },
+                success: function(response) {
+                    // Handle the response from the API
+                    if (response.success) {
+                        // Credentials are valid, redirect to the home page
+                        window.location.href = "home.html";
+                    } else {
+                        // Credentials are invalid, display an error message
+                        document.getElementById("error").innerHTML = "Invalid email or password";
+                    }
+                },
+                error: function() {
+                    // Display an error message if there was an issue with the API request
+                    document.getElementById("error").innerHTML = "An error occurred";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <div id="error"></div>
+    <form>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required><br><br>
+        <input type="button" value="Submit" onclick="validateCredentials()">
+    </form>
+</body>
+</html>
